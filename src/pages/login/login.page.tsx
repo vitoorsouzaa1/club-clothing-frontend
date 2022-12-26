@@ -30,9 +30,12 @@ export const LoginPage = () => {
           <LoginSubtitle>or use your e-mail</LoginSubtitle>
 
           <LoginInputContainer>
+            <p>Email</p>
             <CustomInput placeholder="Email@mail.com" />
           </LoginInputContainer>
+
           <LoginInputContainer>
+            <p>Password</p>
             <CustomInput placeholder="Password" />
           </LoginInputContainer>
           <CustomButton startIcon={<FiLogIn size={20} />}>LogIn</CustomButton>
