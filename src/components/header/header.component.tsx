@@ -13,7 +13,7 @@ export const Header = () => {
   const navigate = useNavigate()
 
   const handleLoginClick = () => {
-    navigate('/')
+    navigate('/login')
   }
 
   return (
