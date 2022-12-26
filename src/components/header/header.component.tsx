@@ -20,9 +20,9 @@ export const Header = () => {
     <HeaderContainer>
       <HeaderTitle>CLUB CLOTHING</HeaderTitle>
       <HeaderItems>
-        <HeaderItem>Explorar</HeaderItem>
+        <HeaderItem>Explore</HeaderItem>
         <HeaderItem onClick={handleLoginClick}>Login</HeaderItem>
-        <HeaderItem>Criar Conta</HeaderItem>
+        <HeaderItem>Create Account</HeaderItem>
         <HeaderItem>
           <BsCart3 size={25} />
           <p style={{ marginLeft: 5 }}> 5</p>
