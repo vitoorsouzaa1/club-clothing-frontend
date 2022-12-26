@@ -12,6 +12,8 @@ import './categories.styles.css'
 export const Categories = () => {
   const [categories, setCategories] = useState<ICategory[]>([])
 
+  console.log({ categories })
+
   const fetchCategories = async () => {
     try {
       const { data } = await axios.get(`${env.apiURL}/api/category`)
@@ -21,8 +23,6 @@ export const Categories = () => {
       console.log({ error })
     }
   }
-
-  console.log({ categories })
 
   useEffect(() => {
     fetchCategories()
