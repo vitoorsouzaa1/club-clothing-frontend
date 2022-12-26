@@ -2,12 +2,17 @@
 import { FiLogIn } from 'react-icons/fi'
 import validator from 'validator'
 import { useForm } from 'react-hook-form'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { addDoc, collection } from 'firebase/firestore'
 
 // Components
 import { CustomButton } from '../../components/custom-button/custom-button.component'
 import { CustomInput } from '../../components/custom-input/custom-input.component'
 import { Header } from '../../components/header/header.component'
 import { InputErrorMessage } from '../../components/input-error-message/input-error-message.component'
+
+// Utilities
+import { auth, db } from '../../config/firebase.config'
 
 // Styles
 import {
@@ -35,8 +40,19 @@ export const SignUpPage = () => {
     getValues
   } = useForm<ISignUpForm>()
 
-  const handleSubmitPress = (data: ISignUpForm) => {
-    console.log({ data })
+  const handleSubmitPress = async (data: ISignUpForm) => {
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(auth, data.email, data.password)
+
+      await addDoc(collection(db, 'users'), {
+        id: userCredentials.user.uid,
+        name: data.name,
+        email: data.email,
+        emailConfirmation: data.emailConfirmation
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -88,7 +104,7 @@ export const SignUpPage = () => {
           </SignUpInputContainer>
 
           <SignUpInputContainer>
-            <p>Email confirmation</p>
+            <p>Confirm your email</p>
             <CustomInput
               placeholder="example: mail@mail.com"
               hasError={!!errors?.email}
