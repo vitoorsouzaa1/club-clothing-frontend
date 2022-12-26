@@ -1,4 +1,6 @@
 import { createContext, FunctionComponent, useState } from 'react'
+
+// Utilities
 import { IUser } from '../types/user.types'
 
 interface IUserContext {
@@ -24,7 +26,7 @@ export const UserContextProvider: FunctionComponent<IProps> = ({
 }) => {
   const [currentUser, setCurrentUser] = useState<IUser | null>(null)
 
-  const isAuthenticated = currentUser !== undefined
+  const isAuthenticated = currentUser !== null
 
   const loginUser = (user: IUser) => {
     setCurrentUser(user)
