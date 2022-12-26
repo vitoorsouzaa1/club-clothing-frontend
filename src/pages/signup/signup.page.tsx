@@ -2,8 +2,14 @@
 import { FiLogIn } from 'react-icons/fi'
 import validator from 'validator'
 import { useForm } from 'react-hook-form'
-import { AuthError, AuthErrorCodes, createUserWithEmailAndPassword } from 'firebase/auth'
+import {
+  AuthError,
+  AuthErrorCodes,
+  createUserWithEmailAndPassword
+} from 'firebase/auth'
 import { addDoc, collection } from 'firebase/firestore'
+import { useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 // Components
 import { CustomButton } from '../../components/custom-button/custom-button.component'
@@ -13,6 +19,7 @@ import { InputErrorMessage } from '../../components/input-error-message/input-er
 
 // Utilities
 import { auth, db } from '../../config/firebase.config'
+import { UserContext } from '../../contextx/user.context'
 
 // Styles
 import {
@@ -39,6 +46,16 @@ export const SignUpPage = () => {
     getValues,
     setError
   } = useForm<ISignUpForm>()
+
+  const { isAuthenticated } = useContext(UserContext)
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/')
+    }
+  }, [isAuthenticated])
 
   const handleSubmitPress = async (data: ISignUpForm) => {
     try {
@@ -107,7 +124,9 @@ export const SignUpPage = () => {
             )}
 
             {errors?.email?.type === 'alreadyInUse' && (
-              <InputErrorMessage>This email is already in use, choose another</InputErrorMessage>
+              <InputErrorMessage>
+                This email is already in use, choose another
+              </InputErrorMessage>
             )}
 
             {errors?.email?.type === 'validate' && (

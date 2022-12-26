@@ -9,15 +9,18 @@ import {
 } from 'firebase/auth'
 import validator from 'validator'
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
+import { useEffect, useContext } from 'react'
 
 // Components
 import { Header } from '../../components/header/header.component'
 import { CustomButton } from '../../components/custom-button/custom-button.component'
 import { CustomInput } from '../../components/custom-input/custom-input.component'
 import { InputErrorMessage } from '../../components/input-error-message/input-error-message.component'
+import { useNavigate } from 'react-router-dom'
 
 // Utilities
 import { auth, db, googleProvider } from '../../config/firebase.config'
+import { UserContext } from '../../contextx/user.context'
 
 // Styles
 import {
@@ -40,6 +43,15 @@ export const LoginPage = () => {
     handleSubmit,
     setError
   } = useForm<ILoginForm>()
+
+  const navigate = useNavigate()
+  const { isAuthenticated } = useContext(UserContext)
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/')
+    }
+  }, [isAuthenticated])
 
   const handleSubmitPress = async (data: ILoginForm) => {
     try {
