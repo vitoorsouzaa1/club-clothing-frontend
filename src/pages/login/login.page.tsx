@@ -20,7 +20,7 @@ import { useNavigate } from 'react-router-dom'
 
 // Utilities
 import { auth, db, googleProvider } from '../../config/firebase.config'
-import { UserContext } from '../../contextx/user.context'
+import { UserContext } from '../../context/user.context'
 
 // Styles
 import {

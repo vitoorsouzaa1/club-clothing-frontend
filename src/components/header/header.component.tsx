@@ -5,7 +5,7 @@ import { useContext } from 'react'
 
 // Utilities
 import { auth } from '../../config/firebase.config'
-import { UserContext } from '../../contextx/user.context'
+import { UserContext } from '../../context/user.context'
 
 // Styles
 import {

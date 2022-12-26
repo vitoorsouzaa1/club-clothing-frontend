@@ -9,7 +9,7 @@ import { SignUpPage } from './pages/signup/signup.page'
 
 // Utilities
 import { auth, db } from './config/firebase.config'
-import { UserContext } from './contextx/user.context'
+import { UserContext } from './context/user.context'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 
 export const App: FunctionComponent = (): JSX.Element => {

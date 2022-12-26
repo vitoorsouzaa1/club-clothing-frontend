@@ -19,7 +19,7 @@ import { InputErrorMessage } from '../../components/input-error-message/input-er
 
 // Utilities
 import { auth, db } from '../../config/firebase.config'
-import { UserContext } from '../../contextx/user.context'
+import { UserContext } from '../../context/user.context'
 
 // Styles
 import {
@@ -156,7 +156,8 @@ export const SignUpPage = () => {
 
             {watch('emailConfirmation') !== watch('email') &&
             getValues('emailConfirmation') ? (
-              <p>Emails does not match</p>) : null}
+              <p>Emails does not match</p>
+            ) : null}
           </SignUpInputContainer>
 
           <SignUpInputContainer>
@@ -197,7 +198,8 @@ export const SignUpPage = () => {
 
             {watch('passwordConfirmation') !== watch('password') &&
             getValues('passwordConfirmation') ? (
-              <p>Password does not match</p>) : null}
+              <p>Password does not match</p>
+            ) : null}
 
             {errors?.password?.type === 'minLength' && (
               <InputErrorMessage>
