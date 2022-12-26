@@ -11,7 +11,7 @@ export const CategoryItem: FunctionComponent<ICategoryItemProps> = ({
   return (
     <div
       className="category-item-container"
-      style={{ backgroundImage: category.imageUrl }}>
+      style={{ backgroundImage: `url('${category.imageUrl}')` }}>
       <div className="category-name">
         <p>{category.displayName}</p>
         <p>Explorar</p>
