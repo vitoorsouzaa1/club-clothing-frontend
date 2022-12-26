@@ -2,7 +2,7 @@
 import { FiLogIn } from 'react-icons/fi'
 import validator from 'validator'
 import { useForm } from 'react-hook-form'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { AuthError, AuthErrorCodes, createUserWithEmailAndPassword } from 'firebase/auth'
 import { addDoc, collection } from 'firebase/firestore'
 
 // Components
@@ -28,7 +28,6 @@ interface ISignUpForm {
   emailConfirmation: string
   password: string
   passwordConfirmation: string
-
 }
 
 export const SignUpPage = () => {
@@ -37,12 +36,17 @@ export const SignUpPage = () => {
     formState: { errors },
     handleSubmit,
     watch,
-    getValues
+    getValues,
+    setError
   } = useForm<ISignUpForm>()
 
   const handleSubmitPress = async (data: ISignUpForm) => {
     try {
-      const userCredentials = await createUserWithEmailAndPassword(auth, data.email, data.password)
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      )
 
       await addDoc(collection(db, 'users'), {
         id: userCredentials.user.uid,
@@ -51,7 +55,11 @@ export const SignUpPage = () => {
         emailConfirmation: data.emailConfirmation
       })
     } catch (error) {
-      console.log(error)
+      const err = error as AuthError
+
+      if (err.code === AuthErrorCodes.EMAIL_EXISTS) {
+        return setError('email', { type: 'alreadyInUse' })
+      }
     }
   }
 
@@ -70,8 +78,7 @@ export const SignUpPage = () => {
               hasError={!!errors?.name}
               {...register('name', {
                 required: true
-              }
-              )}
+              })}
             />
             {errors?.name?.type === 'required' && (
               <InputErrorMessage>The name is required</InputErrorMessage>
@@ -96,6 +103,10 @@ export const SignUpPage = () => {
             />
             {errors?.email?.type === 'required' && (
               <InputErrorMessage>The email is required</InputErrorMessage>
+            )}
+
+            {errors?.email?.type === 'alreadyInUse' && (
+              <InputErrorMessage>This email is already in use, choose another</InputErrorMessage>
             )}
 
             {errors?.email?.type === 'validate' && (
@@ -124,11 +135,8 @@ export const SignUpPage = () => {
             )}
 
             {watch('emailConfirmation') !== watch('email') &&
-            getValues('emailConfirmation')
-              ? (
-              <p>Emails does not match</p>
-                )
-              : null}
+            getValues('emailConfirmation') ? (
+              <p>Emails does not match</p>) : null}
           </SignUpInputContainer>
 
           <SignUpInputContainer>
@@ -138,7 +146,8 @@ export const SignUpPage = () => {
               type="password"
               hasError={!!errors?.password}
               {...register('password', {
-                required: true
+                required: true,
+                minLength: 8
               })}
             />
             {errors?.password?.type === 'required' && (
@@ -167,25 +176,19 @@ export const SignUpPage = () => {
             )}
 
             {watch('passwordConfirmation') !== watch('password') &&
-            getValues('passwordConfirmation')
-              ? (
-              <p>Password does not match</p>
-                )
-              : null}
+            getValues('passwordConfirmation') ? (
+              <p>Password does not match</p>) : null}
 
             {errors?.password?.type === 'minLength' && (
               <InputErrorMessage>
-                Password cannot be less than 8 characters
+                Password confirmation cannot be less than 8 characters
               </InputErrorMessage>
             )}
           </SignUpInputContainer>
 
-          <CustomButton onClick={() => handleSubmit(handleSubmitPress)()}
-            startIcon={
-              <FiLogIn
-                size={20}
-                />
-            }>
+          <CustomButton
+            onClick={() => handleSubmit(handleSubmitPress)()}
+            startIcon={<FiLogIn size={20} />}>
             Create Account
           </CustomButton>
         </SignUpContent>
