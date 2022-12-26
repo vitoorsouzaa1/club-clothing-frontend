@@ -12,6 +12,7 @@ import { auth, db } from './config/firebase.config'
 import { UserContext } from './context/user.context'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { userConverter } from './converters/firestore.converters'
+import { LoadingComponent } from './components/loading/loading.components'
 
 export const App: FunctionComponent = () => {
   const [isInitializing, setIsInitializing] = useState(true)
@@ -42,7 +43,7 @@ export const App: FunctionComponent = () => {
     return setIsInitializing(false)
   })
 
-  if (isInitializing) return null
+  if (isInitializing) return <LoadingComponent />
 
   return (
     <BrowserRouter>
