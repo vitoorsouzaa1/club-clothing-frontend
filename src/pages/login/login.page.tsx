@@ -3,10 +3,13 @@
 import { BsGoogle } from 'react-icons/bs'
 import { FiLogIn } from 'react-icons/fi'
 import { useForm } from 'react-hook-form'
+import validator from 'validator'
 
 // Components
 import { Header } from '../../components/header/header.component'
 import { CustomButton } from '../../components/custom-button/custom-button.component'
+import { CustomInput } from '../../components/custom-input/custom-input.component'
+import { InputErrorMessage } from '../../components/input-error-message/input-error-message.component'
 
 // Styles
 import {
@@ -16,7 +19,6 @@ import {
   LoginSubtitle,
   LoginContent
 } from './login.styles'
-import { CustomInput } from '../../components/custom-input/custom-input.component'
 
 export const LoginPage = () => {
   const {
@@ -47,8 +49,20 @@ export const LoginPage = () => {
             <CustomInput
               hasError={!!errors?.email}
               placeholder="Email@mail.com"
-              {...register('email', { required: true })}
+              {...register('email', {
+                required: true,
+                validate: (value) => {
+                  return validator.isEmail(value)
+                }
+              })}
             />
+            {errors?.email?.type === 'required' && (
+              <InputErrorMessage>The email is required</InputErrorMessage>
+            )}
+
+            {errors?.email?.type === 'validate' && (
+              <InputErrorMessage>Please insert a valid email</InputErrorMessage>
+            )}
           </LoginInputContainer>
 
           <LoginInputContainer>
@@ -58,6 +72,9 @@ export const LoginPage = () => {
               placeholder="Password"
               {...register('password', { required: true })}
             />
+            {errors?.password?.type === 'required' && (
+              <InputErrorMessage>The password is required</InputErrorMessage>
+            )}
           </LoginInputContainer>
           <CustomButton
             startIcon={
