@@ -9,14 +9,15 @@ import {
 } from 'firebase/auth'
 import validator from 'validator'
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
-import { useEffect, useContext } from 'react'
+import { useEffect, useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 // Components
 import { Header } from '../../components/header/header.component'
 import { CustomButton } from '../../components/custom-button/custom-button.component'
 import { CustomInput } from '../../components/custom-input/custom-input.component'
 import { InputErrorMessage } from '../../components/input-error-message/input-error-message.component'
-import { useNavigate } from 'react-router-dom'
+import { LoadingComponent } from '../../components/loading/loading.components'
 
 // Utilities
 import { auth, db, googleProvider } from '../../config/firebase.config'
@@ -44,6 +45,8 @@ export const LoginPage = () => {
     setError
   } = useForm<ILoginForm>()
 
+  const [isLoading, setIsLoading] = useState(false)
+
   const navigate = useNavigate()
   const { isAuthenticated } = useContext(UserContext)
 
@@ -55,6 +58,7 @@ export const LoginPage = () => {
 
   const handleSubmitPress = async (data: ILoginForm) => {
     try {
+      setIsLoading(true)
       const userCredentials = await signInWithEmailAndPassword(
         auth,
         data.email,
@@ -71,11 +75,14 @@ export const LoginPage = () => {
       if (err.code === AuthErrorCodes.USER_DELETED) {
         return setError('email', { type: 'notFound' })
       }
+    } finally {
+      setIsLoading(false)
     }
   }
 
   const handleSignInWithGooglePress = async () => {
     try {
+      setIsLoading(true)
       const userCredentials = await signInWithPopup(auth, googleProvider)
 
       const querySnapshot = await getDocs(
@@ -96,12 +103,16 @@ export const LoginPage = () => {
       }
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
   return (
     <>
       <Header />
+
+      {isLoading && <LoadingComponent />}
 
       <LoginContainer>
         <LoginContent>
