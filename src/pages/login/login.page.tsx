@@ -69,6 +69,7 @@ export const LoginPage = () => {
               hasError={!!errors?.password}
               placeholder="Password"
               {...register('password', { required: true })}
+              type="password"
             />
             {errors?.password?.type === 'required' && (
               <InputErrorMessage>The password is required</InputErrorMessage>
