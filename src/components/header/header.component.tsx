@@ -28,9 +28,13 @@ export const Header = () => {
     navigate('/signup')
   }
 
+  const handleLogoClick = () => {
+    navigate('/')
+  }
+
   return (
     <HeaderContainer>
-      <HeaderTitle>CLUB CLOTHING</HeaderTitle>
+      <HeaderTitle onClick={handleLogoClick}>CLUB CLOTHING</HeaderTitle>
       <HeaderItems>
         <HeaderItem>Explore</HeaderItem>
         {!isAuthenticated && (
