@@ -52,7 +52,8 @@ export const SignUpPage = () => {
         id: userCredentials.user.uid,
         name: data.name,
         email: data.email,
-        emailConfirmation: data.emailConfirmation
+        emailConfirmation: data.emailConfirmation,
+        provider: 'firebase'
       })
     } catch (error) {
       const err = error as AuthError

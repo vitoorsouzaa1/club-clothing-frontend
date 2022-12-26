@@ -4,9 +4,11 @@ import { useForm } from 'react-hook-form'
 import {
   AuthError,
   AuthErrorCodes,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  signInWithPopup
 } from 'firebase/auth'
 import validator from 'validator'
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
 
 // Components
 import { Header } from '../../components/header/header.component'
@@ -15,7 +17,7 @@ import { CustomInput } from '../../components/custom-input/custom-input.componen
 import { InputErrorMessage } from '../../components/input-error-message/input-error-message.component'
 
 // Utilities
-import { auth } from '../../config/firebase.config'
+import { auth, db, googleProvider } from '../../config/firebase.config'
 
 // Styles
 import {
@@ -60,6 +62,31 @@ export const LoginPage = () => {
     }
   }
 
+  const handleSignInWithGooglePress = async () => {
+    try {
+      const userCredentials = await signInWithPopup(auth, googleProvider)
+
+      const querySnapshot = await getDocs(
+        query(
+          collection(db, 'users'),
+          where('id', '==', userCredentials.user.uid)
+        )
+      )
+
+      const user = querySnapshot.docs[0]?.data()
+
+      if (!user) {
+        await addDoc(collection(db, 'users'), {
+          id: userCredentials.user.uid,
+          email: userCredentials.user.email,
+          provider: 'google'
+        })
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
       <Header />
@@ -67,7 +94,9 @@ export const LoginPage = () => {
       <LoginContainer>
         <LoginContent>
           <LoginHeadline>Login with your account</LoginHeadline>
-          <CustomButton startIcon={<BsGoogle size={20} />}>
+          <CustomButton
+            startIcon={<BsGoogle size={20} />}
+            onClick={handleSignInWithGooglePress}>
             Login with Google
           </CustomButton>
 
