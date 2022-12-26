@@ -1,5 +1,5 @@
 import { onAuthStateChanged } from 'firebase/auth'
-import { FunctionComponent, useContext } from 'react'
+import { FunctionComponent, useContext, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 // Pages
@@ -12,14 +12,17 @@ import { auth, db } from './config/firebase.config'
 import { UserContext } from './context/user.context'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 
-export const App: FunctionComponent = (): JSX.Element => {
+export const App: FunctionComponent = () => {
+  const [isInitializing, setIsInitializing] = useState(true)
+
   const { isAuthenticated, loginUser, logoutUser } = useContext(UserContext)
 
   onAuthStateChanged(auth, async (user) => {
     const isSigningOut = isAuthenticated && !user
 
     if (isSigningOut) {
-      return logoutUser()
+      logoutUser()
+      return setIsInitializing(false)
     }
 
     const isSigninIn = !isAuthenticated && user
@@ -31,7 +34,11 @@ export const App: FunctionComponent = (): JSX.Element => {
 
       return loginUser(userFromFirestore as any)
     }
+
+    return setIsInitializing(false)
   })
+
+  if (isInitializing) return null
 
   return (
     <BrowserRouter>
