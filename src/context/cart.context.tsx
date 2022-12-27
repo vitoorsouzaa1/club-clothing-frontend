@@ -72,11 +72,13 @@ export const CartContextProvider: FunctionComponent<IProps> = ({
 
   const decreaseProductQuantity = (productId: string) => {
     setProducts((products) =>
-      products.map((product) =>
-        product.id === productId
-          ? { ...product, quantity: product.quantity - 1 }
-          : product
-      )
+      products
+        .map((product) =>
+          product.id === productId
+            ? { ...product, quantity: product.quantity - 1 }
+            : product
+        )
+        .filter((product) => product.quantity > 0)
     )
   }
 
