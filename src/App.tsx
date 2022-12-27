@@ -17,6 +17,7 @@ import { userConverter } from './converters/firestore.converters'
 
 // Components
 import { LoadingComponent } from './components/loading/loading.components'
+import { CartComponent } from './components/cart/cart.component'
 
 export const App: FunctionComponent = () => {
   const [isInitializing, setIsInitializing] = useState(true)
@@ -58,6 +59,8 @@ export const App: FunctionComponent = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
       </Routes>
+
+      <CartComponent />
     </BrowserRouter>
   )
 }
