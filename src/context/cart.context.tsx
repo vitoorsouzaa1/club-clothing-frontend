@@ -33,6 +33,18 @@ export const CartContextProvider: FunctionComponent<IProps> = ({
   }
 
   const addProductToCart = (product: IProducts) => {
+    const cartProducts = products.some((item) => item.id === product.id)
+
+    if (cartProducts) {
+      return setProducts(
+        products.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        )
+      )
+    }
+
     setProducts((prevState) => [...prevState, { ...product, quantity: 1 }])
   }
 
