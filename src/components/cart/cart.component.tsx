@@ -18,7 +18,7 @@ import {
 } from './cart.styles'
 
 export const CartComponent: FunctionComponent = () => {
-  const { isVisible, products, productsTotalPrice, toggleCart } =
+  const { isVisible, products, productsTotalPrice, productsCount, toggleCart } =
     useContext(CartContext)
 
   return (
@@ -30,9 +30,16 @@ export const CartComponent: FunctionComponent = () => {
         {products.map((product) => (
           <CartItem key={product.id} product={product} />
         ))}
-        <CartTotal>Total: R$ {productsTotalPrice}</CartTotal>
 
-        <CustomButton startIcon={<BsCartCheck />}>Checkout</CustomButton>
+        {productsCount > 0 && (
+          <CartTotal>Total: R$ {productsTotalPrice}</CartTotal>
+        )}
+
+        {productsCount > 0 && (
+          <CustomButton startIcon={<BsCartCheck />}>Checkout</CustomButton>
+        )}
+
+        {productsCount === 0 && <p>Empty cart.</p>}
       </CartContent>
     </CartContainer>
   )
