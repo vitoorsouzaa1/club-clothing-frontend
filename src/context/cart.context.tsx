@@ -19,8 +19,8 @@ interface ICartContext {
 export const CartContext = createContext<ICartContext>({
   isVisible: false,
   productsTotalPrice: 0,
-  productsCount: 0,
   products: [],
+  productsCount: 0,
   toggleCart: () => {},
   addProductToCart: () => {},
   removeProductFromCart: () => {},
@@ -41,6 +41,12 @@ export const CartContextProvider: FunctionComponent<IProps> = ({
   const productsTotalPrice = useMemo(() => {
     return products.reduce((acc, currentProduct) => {
       return acc + currentProduct.price * currentProduct.quantity
+    }, 0)
+  }, [products])
+
+  const productsCount = useMemo(() => {
+    return products.reduce((acc, currentProduct) => {
+      return acc + currentProduct.quantity
     }, 0)
   }, [products])
 
@@ -98,6 +104,7 @@ export const CartContextProvider: FunctionComponent<IProps> = ({
         isVisible,
         products,
         productsTotalPrice,
+        productsCount,
         toggleCart,
         addProductToCart,
         removeProductFromCart,
