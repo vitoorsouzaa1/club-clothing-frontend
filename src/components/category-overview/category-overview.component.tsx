@@ -1,5 +1,12 @@
 import { FunctionComponent } from 'react'
-import { ICategory } from '../types/category.type'
+
+// Utilities
+import { ICategory } from '../../types/category.type'
+
+// Components
+import { ProductItem } from '../product-item/product-item.component'
+
+// Styles
 import {
   CategoryContainer,
   CategoryTitle,
@@ -17,7 +24,11 @@ export const CategoryOverview: FunctionComponent<ICategoryOverviewProps> = ({
     <CategoryContainer>
       <CategoryTitle>{category.displayName}</CategoryTitle>
 
-      <ProductsContainer></ProductsContainer>
+      <ProductsContainer>
+        {category.products.slice(0, 4).map((product) => (
+          <ProductItem key={product.id} product={product} />
+        ))}
+      </ProductsContainer>
     </CategoryContainer>
   )
 }

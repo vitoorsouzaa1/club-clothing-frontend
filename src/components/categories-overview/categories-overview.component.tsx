@@ -4,7 +4,7 @@ import { FunctionComponent, useContext, useEffect } from 'react'
 import { CategoryContext } from '../../context/category.context'
 
 // Components
-import { CategoryOverview } from '../../category-overview/category-overview.component'
+import { CategoryOverview } from '../category-overview/category-overview.component'
 
 // Styles
 import { Container } from './categories-overview.styles'
