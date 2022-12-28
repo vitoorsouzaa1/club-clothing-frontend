@@ -1,5 +1,6 @@
 import { FunctionComponent, useContext } from 'react'
 import { BsCartCheck } from 'react-icons/bs'
+import { useNavigate } from 'react-router-dom'
 
 // Utilities
 import { CartContext } from '../../context/cart.context'
@@ -21,6 +22,13 @@ export const CartComponent: FunctionComponent = () => {
   const { isVisible, products, productsTotalPrice, productsCount, toggleCart } =
     useContext(CartContext)
 
+  const navigate = useNavigate()
+
+  const handleCheckoutClick = () => {
+    navigate('/checkout')
+    toggleCart()
+  }
+
   return (
     <CartContainer isVisible={isVisible}>
       <CartEscapeArea onClick={toggleCart} />
@@ -36,7 +44,11 @@ export const CartComponent: FunctionComponent = () => {
         )}
 
         {productsCount > 0 && (
-          <CustomButton startIcon={<BsCartCheck />}>Checkout</CustomButton>
+          <CustomButton
+            startIcon={<BsCartCheck />}
+            onClick={handleCheckoutClick}>
+            Checkout
+          </CustomButton>
         )}
 
         {productsCount === 0 && <p>Empty cart.</p>}
