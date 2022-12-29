@@ -8,7 +8,6 @@ import {
   createUserWithEmailAndPassword
 } from 'firebase/auth'
 import { addDoc, collection } from 'firebase/firestore'
-import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -21,6 +20,7 @@ import { LoadingComponent } from '../../components/loading/loading.components'
 
 // Utilities
 import { auth, db } from '../../config/firebase.config'
+import { useAppSelector } from '../../hooks/redux.hooks'
 
 // Styles
 import {
@@ -50,8 +50,8 @@ export const SignUpPage = () => {
 
   const [isLoading, setIsLoading] = useState(false)
 
-  const { isAuthenticated } = useSelector(
-    (rootReducer: any) => rootReducer.userReducer
+  const { isAuthenticated } = useAppSelector(
+    (rootReducer) => rootReducer.userReducer
   )
 
   const navigate = useNavigate()
