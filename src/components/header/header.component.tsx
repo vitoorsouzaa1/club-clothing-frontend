@@ -7,6 +7,7 @@ import { useContext } from 'react'
 // Utilities
 import { auth } from '../../config/firebase.config'
 import { CartContext } from '../../context/cart.context'
+import { logoutUser } from '../../store/reducers/users/user.actions'
 
 // Styles
 import {
@@ -43,7 +44,7 @@ export const Header = () => {
   }
 
   const handleSignOutClick = () => {
-    dispatch({ type: 'LOGOUT_USER' })
+    dispatch(logoutUser())
     signOut(auth)
   }
 
