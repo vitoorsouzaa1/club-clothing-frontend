@@ -5,7 +5,6 @@ import { Provider } from 'react-redux'
 
 import './index.css'
 
-import { UserContextProvider } from './context/user.context'
 import { CategoryContextProvider } from './context/category.context'
 import { CartContextProvider } from './context/cart.context'
 import reportWebVitals from './reportWebVitals'
@@ -15,13 +14,11 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <UserContextProvider>
-        <CategoryContextProvider>
-          <CartContextProvider>
-            <App />
-          </CartContextProvider>
-        </CategoryContextProvider>
-      </UserContextProvider>
+      <CategoryContextProvider>
+        <CartContextProvider>
+          <App />
+        </CartContextProvider>
+      </CategoryContextProvider>
     </Provider>
   </React.StrictMode>
 )

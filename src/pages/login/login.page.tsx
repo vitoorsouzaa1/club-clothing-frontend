@@ -9,8 +9,9 @@ import {
 } from 'firebase/auth'
 import validator from 'validator'
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
-import { useEffect, useContext, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 // Components
 import { Header } from '../../components/header/header.component'
@@ -21,7 +22,6 @@ import { LoadingComponent } from '../../components/loading/loading.components'
 
 // Utilities
 import { auth, db, googleProvider } from '../../config/firebase.config'
-import { UserContext } from '../../context/user.context'
 
 // Styles
 import {
@@ -48,7 +48,9 @@ export const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const navigate = useNavigate()
-  const { isAuthenticated } = useContext(UserContext)
+  const { isAuthenticated } = useSelector(
+    (rootReducer: any) => rootReducer.userReducer
+  )
 
   useEffect(() => {
     if (isAuthenticated) {

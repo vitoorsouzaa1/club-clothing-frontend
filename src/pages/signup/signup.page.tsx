@@ -8,7 +8,8 @@ import {
   createUserWithEmailAndPassword
 } from 'firebase/auth'
 import { addDoc, collection } from 'firebase/firestore'
-import { useContext, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 // Components
@@ -20,7 +21,6 @@ import { LoadingComponent } from '../../components/loading/loading.components'
 
 // Utilities
 import { auth, db } from '../../config/firebase.config'
-import { UserContext } from '../../context/user.context'
 
 // Styles
 import {
@@ -50,7 +50,9 @@ export const SignUpPage = () => {
 
   const [isLoading, setIsLoading] = useState(false)
 
-  const { isAuthenticated } = useContext(UserContext)
+  const { isAuthenticated } = useSelector(
+    (rootReducer: any) => rootReducer.userReducer
+  )
 
   const navigate = useNavigate()
 
