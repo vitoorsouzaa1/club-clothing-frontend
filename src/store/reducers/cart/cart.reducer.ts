@@ -1,5 +1,6 @@
 import { ICartProduct } from '../../../types/cart.types'
 import { CartActionTypes } from './cart.action-types'
+import { CartActions } from './cart.actions'
 
 interface IInitialState {
   isVisible: boolean
@@ -11,7 +12,10 @@ const initialState: IInitialState = {
   products: []
 }
 
-export const cartReducer = (state = initialState, action: any) => {
+export const cartReducer = (
+  state = initialState,
+  action: CartActions
+): IInitialState => {
   switch (action.type) {
     case CartActionTypes.toggleCart:
       return { ...state, isVisible: !state.isVisible }
@@ -19,12 +23,10 @@ export const cartReducer = (state = initialState, action: any) => {
     case CartActionTypes.addProductToCart: {
       const product = action.payload
 
-      // verificar se o produto já está no carrinho
       const productIsAlreadyInCart = state.products.some(
         (item) => item.id === product.id
       )
 
-      // se sim -> aumentar sua quantidade
       if (productIsAlreadyInCart) {
         return {
           ...state,
