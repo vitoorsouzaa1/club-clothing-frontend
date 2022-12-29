@@ -25,7 +25,8 @@
     "@typescript-eslint/space-before-function-paren": "off",
     "@typescript-eslint/indent": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
-    "multiline-ternary": "off"
+    "multiline-ternary": "off",
+    "@typescript-eslint/restrict-plus-operands": "off"
   },
 
   "settings": {
