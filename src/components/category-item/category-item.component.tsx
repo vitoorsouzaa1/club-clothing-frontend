@@ -24,7 +24,7 @@ export const CategoryItem: FunctionComponent<ICategoryItemProps> = ({
       style={{ backgroundImage: `url('${category.imageUrl}')` }}>
       <CategoryName onClick={handleExploreClick}>
         <p>{category.displayName}</p>
-        <p>Explorar</p>
+        <p>Explore</p>
       </CategoryName>
     </CategoryItemContainer>
   )

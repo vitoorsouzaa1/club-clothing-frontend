@@ -22,8 +22,6 @@ export const userReducer = (
     case UserActionTypes.LOGOUT:
       return { ...state, currentUser: null, isAuthenticated: false }
     default:
-      return {
-        ...state
-      }
+      return state
   }
 }

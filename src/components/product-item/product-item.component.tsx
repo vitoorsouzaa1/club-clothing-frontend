@@ -25,7 +25,9 @@ export const ProductItem: FunctionComponent<IProductItemProps> = ({
 }) => {
   const dispatch = useDispatch()
 
-  const handleAddToCartClick = () => dispatch(addProductToCart(product))
+  const handleAddToCartClick = () => {
+    dispatch(addProductToCart(product))
+  }
 
   return (
     <ProductContainer>

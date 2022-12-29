@@ -19,11 +19,13 @@ export const cartReducer = (state = initialState, action: any) => {
     case CartActionTypes.addProductToCart: {
       const product = action.payload
 
-      const producIsAlreadyInCart = state.products.some(
+      // verificar se o produto já está no carrinho
+      const productIsAlreadyInCart = state.products.some(
         (item) => item.id === product.id
       )
 
-      if (producIsAlreadyInCart) {
+      // se sim -> aumentar sua quantidade
+      if (productIsAlreadyInCart) {
         return {
           ...state,
           products: state.products.map((item) =>
@@ -34,11 +36,13 @@ export const cartReducer = (state = initialState, action: any) => {
         }
       }
 
+      // se não -> adicioná-lo
       return {
         ...state,
-        products: [...state.products, { ...product, quatity: 1 }]
+        products: [...state.products, { ...product, quantity: 1 }]
       }
     }
+
     case CartActionTypes.removeProductFromCart:
       return {
         ...state,
@@ -46,6 +50,7 @@ export const cartReducer = (state = initialState, action: any) => {
           (product) => product.id !== action.payload
         )
       }
+
     case CartActionTypes.increaseCartProductQuantity:
       return {
         ...state,
@@ -67,6 +72,7 @@ export const cartReducer = (state = initialState, action: any) => {
           )
           .filter((product) => product.quantity > 0)
       }
+
     case CartActionTypes.clearCart:
       return {
         ...state,
@@ -74,6 +80,6 @@ export const cartReducer = (state = initialState, action: any) => {
       }
 
     default:
-      return { ...state }
+      return state
   }
 }
