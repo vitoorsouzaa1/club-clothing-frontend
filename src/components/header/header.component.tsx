@@ -8,6 +8,7 @@ import { useContext } from 'react'
 import { auth } from '../../config/firebase.config'
 import { CartContext } from '../../context/cart.context'
 import { logoutUser } from '../../store/reducers/users/user.actions'
+import { toggleCart } from '../../store/reducers/cart/cart.actions'
 
 // Styles
 import {
@@ -19,7 +20,7 @@ import {
 
 export const Header = () => {
   const navigate = useNavigate()
-  const { toggleCart, productsCount } = useContext(CartContext)
+  const { productsCount } = useContext(CartContext)
 
   const dispatch = useDispatch()
 
@@ -48,6 +49,10 @@ export const Header = () => {
     signOut(auth)
   }
 
+  const handleToggleCartClick = () => {
+    dispatch(toggleCart())
+  }
+
   return (
     <HeaderContainer>
       <HeaderTitle onClick={handleLogoClick}>CLUB CLOTHING</HeaderTitle>
@@ -62,7 +67,7 @@ export const Header = () => {
         {isAuthenticated && (
           <HeaderItem onClick={handleSignOutClick}>Sign Out</HeaderItem>
         )}
-        <HeaderItem onClick={toggleCart}>
+        <HeaderItem onClick={handleToggleCartClick}>
           <BsCart3 size={25} />
           <p style={{ marginLeft: 5 }}>{productsCount}</p>
         </HeaderItem>
