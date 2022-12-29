@@ -16,7 +16,7 @@ import { auth, db } from './config/firebase.config'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { userConverter } from './converters/firestore.converters'
 import { AutheticationGuard } from './guards/authentication.guard'
-import { loginUser, logoutUser } from './store/reducers/users/user.actions'
+import { loginUser, logoutUser } from './store/toolkit/users/user.slice'
 import { useAppSelector } from './hooks/redux.hooks'
 
 // Components
