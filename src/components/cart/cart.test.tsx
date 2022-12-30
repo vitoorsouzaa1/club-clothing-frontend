@@ -24,4 +24,16 @@ describe('CartComponent', () => {
     getByText('Total: R$ 200')
     getByText(/checkout/i)
   })
+
+  test('should not show checkout button and should show an empty message if cart is empty', () => {
+    const { getByText, queryByText } = renderWithRedux(<CartComponent />, {
+      preloadedState: {
+        cartReducer: {
+          products: []
+        }
+      } as any
+    })
+    getByText(/empty cart/i)
+    expect(queryByText(/checkout/i)).toBeNull()
+  })
 })
