@@ -80,6 +80,7 @@ describe('CartComponent', () => {
     const decreaseButton = getByLabelText(/decrease quantity of any_name/i)
     userEvent.click(decreaseButton)
     getByText('1')
+
     getByText('Total: R$ 100')
   })
 
