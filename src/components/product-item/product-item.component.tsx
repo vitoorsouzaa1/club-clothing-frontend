@@ -3,7 +3,7 @@ import { BsCartPlus } from 'react-icons/bs'
 import { useDispatch } from 'react-redux'
 
 // Utilities
-import { addProductToCart } from '../../store/reducers/cart/cart.actions'
+import { addProductToCart } from '../../store/toolkit/cart/cart.slice'
 import { IProducts } from '../../types/products.types'
 
 // Components

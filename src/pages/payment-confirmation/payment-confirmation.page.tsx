@@ -19,7 +19,7 @@ import { CustomButton } from '../../components/custom-button/custom-button.compo
 
 // Utilities
 import { Colors } from '../../theme/Colors'
-import { clearCart } from '../../store/reducers/cart/cart.actions'
+import { clearCart } from '../../store/toolkit/cart/cart.slice'
 
 export const PaymentConfirmationPage: FunctionComponent = () => {
   const dispatch = useDispatch()
