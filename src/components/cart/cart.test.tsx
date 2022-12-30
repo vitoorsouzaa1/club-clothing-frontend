@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event'
 
-import { renderWithRedux } from '../../helpers/test.helper'
+import { renderWithRedux } from '../../helpers/test.helpers'
 import { CartComponent } from './cart.component'
 
 describe('CartComponent', () => {

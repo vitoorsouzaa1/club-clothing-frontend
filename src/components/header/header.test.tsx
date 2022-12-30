@@ -1,4 +1,4 @@
-import { renderWithRedux } from '../../helpers/test.helper'
+import { renderWithRedux } from '../../helpers/test.helpers'
 import { Header } from './header.component'
 
 describe('Header Component', () => {

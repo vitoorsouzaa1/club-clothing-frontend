@@ -1,4 +1,4 @@
-import { renderWithRedux } from '../../helpers/test.helper'
+import { renderWithRedux } from '../../helpers/test.helpers'
 import { ICartProduct } from '../../types/cart.types'
 import { CartItem } from './cart-item.component'
 
