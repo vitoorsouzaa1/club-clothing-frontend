@@ -27,7 +27,7 @@
     "@typescript-eslint/indent": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "multiline-ternary": "off",
-    // "@typescript-eslint/restrict-plus-operands": "off",
+    "prefer-promise-reject-errors": "off",
     "@typescript-eslint/prefer-ts-expect-error": "off"
   },
 
