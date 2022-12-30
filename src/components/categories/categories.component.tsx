@@ -6,7 +6,7 @@ import { CategoryItem } from '../category-item/category-item.component'
 
 // Utilities
 import { LoadingComponent } from '../loading/loading.components'
-import { fetchCategories } from '../../store/reducers/category/category-actions'
+import { fetchCategories } from '../../store/toolkit/category/category.slice'
 
 // Styles
 import { CategoriesContainer, CategoriesContent } from './categories.styles'

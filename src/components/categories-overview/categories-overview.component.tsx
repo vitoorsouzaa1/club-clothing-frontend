@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 
 // Utilities
 import { useAppSelector } from '../../hooks/redux.hooks'
-import { fetchCategories } from '../../store/reducers/category/category-actions'
+import { fetchCategories } from '../../store/toolkit/category/category.slice'
 
 // Components
 import { CategoryOverview } from '../category-overview/category-overview.component'
