@@ -16,4 +16,31 @@ describe('Header Component', () => {
     getByText('Login')
     getByText('Create Account')
   })
+
+  test('should show correct cart products', () => {
+    const { getByText } = renderWithRedux(<Header />, {
+      preloadedState: {
+        cartReducer: {
+          products: [
+            {
+              id: 'any_id',
+              imageUrl: 'any_imageUrl',
+              name: 'any_name',
+              price: 100,
+              quantity: 5
+            },
+
+            {
+              id: 'any_id',
+              imageUrl: 'any_imageUrl',
+              name: 'any_name',
+              price: 100,
+              quantity: 2
+            }
+          ]
+        }
+      } as any
+    })
+    getByText('7')
+  })
 })
