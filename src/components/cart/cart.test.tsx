@@ -59,4 +59,25 @@ describe('CartComponent', () => {
     userEvent.click(increaseButton)
     getByText('3')
   })
+
+  test('should decrease product quantity on decreaseCartProductQuantity click', () => {
+    const { getByLabelText, getByText } = renderWithRedux(<CartComponent />, {
+      preloadedState: {
+        cartReducer: {
+          products: [
+            {
+              id: 'any_id',
+              name: 'any_name',
+              imageUrl: 'any_imageUrl',
+              price: 100,
+              quantity: 2
+            }
+          ]
+        }
+      } as any
+    })
+    const decreaseButton = getByLabelText(/decrease quantity of any_name/i)
+    userEvent.click(decreaseButton)
+    getByText('1')
+  })
 })
