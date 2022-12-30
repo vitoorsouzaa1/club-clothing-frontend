@@ -34,6 +34,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:w": "react-scripts test --watch --passWithNoTests",
     "eject": "react-scripts eject",
     "husky:prepare": "husky install"
   },
