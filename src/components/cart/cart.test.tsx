@@ -58,6 +58,7 @@ describe('CartComponent', () => {
     const increaseButton = getByLabelText(/increase quantity of any_name/i)
     userEvent.click(increaseButton)
     getByText('3')
+    getByText('Total: R$ 300')
   })
 
   test('should decrease product quantity on decreaseCartProductQuantity click', () => {
@@ -79,6 +80,7 @@ describe('CartComponent', () => {
     const decreaseButton = getByLabelText(/decrease quantity of any_name/i)
     userEvent.click(decreaseButton)
     getByText('1')
+    getByText('Total: R$ 100')
   })
 
   test('should remove product form cart on remove click', () => {
