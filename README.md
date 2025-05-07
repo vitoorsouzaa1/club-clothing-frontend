@@ -68,6 +68,8 @@ A estrutura do projeto foi organizada de maneira modular para facilitar a escala
 - **Gerenciamento de compras**:
   - Histórico de compras armazenado no Firebase.
 
+
+Project Demo: https://clubclothing.vercel.app/
 ---
 
 ## ⚙️ Configuração e Instalação
